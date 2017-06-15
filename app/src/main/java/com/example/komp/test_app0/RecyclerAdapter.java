@@ -26,15 +26,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void addText2 (String text){
         num.add(text);
         notifyDataSetChanged();
+
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public void delete (String text){
+        int position = items.indexOf(text);
+        items.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
         public TextView m2TextView;
+        public TextView pih;
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.tv_recycler_item);
             m2TextView = (TextView) v.findViewById(R.id.tv2_recycler_item);
+
+
         }
     }
 
@@ -51,6 +61,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         holder.mTextView.setText(items.get(position));
         holder.m2TextView.setText(num.get(position));
+
     }
 
     @Override

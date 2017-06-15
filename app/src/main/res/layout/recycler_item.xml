@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v7.widget.CardView xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv"
     card_view:cardCornerRadius="4dp"
-    card_view:cardBackgroundColor="#C66"
+    card_view:cardBackgroundColor="@color/accent_material_dark"
+    card_view:cardUseCompatPadding="true">
     card_view:cardElevation="5dp"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
