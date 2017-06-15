@@ -6,26 +6,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by komp on 13.06.2017.
  */
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private String[] mDataset;
+    List<String> items = new ArrayList<>();
+    List<String> num = new ArrayList<>();
 
+    public void addText (String text){
+        items.add(text);
+        notifyDataSetChanged();
+    }
 
+    public void addText2 (String text){
+        num.add(text);
+        notifyDataSetChanged();
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
+        public TextView m2TextView;
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.tv_recycler_item);
+            m2TextView = (TextView) v.findViewById(R.id.tv2_recycler_item);
         }
-    }
-
-    public RecyclerAdapter(String[] dataset) {
-        mDataset = dataset;
     }
 
     @Override
@@ -39,12 +49,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.mTextView.setText(mDataset[position]);
-
+        holder.mTextView.setText(items.get(position));
+        holder.m2TextView.setText(num.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return items.size();
     }
+
 }
