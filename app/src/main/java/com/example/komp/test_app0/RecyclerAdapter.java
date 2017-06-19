@@ -21,8 +21,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private static final int TYPE_ALL = 1;
 
     List<String> items = new ArrayList<>();
-    List<String> num = new ArrayList<>();
-    List<String> emp = new ArrayList<>();
+    //List<String> empxx = new ArrayList<>();
 
 
     public void addText(String text) {
@@ -30,15 +29,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public void addText2(String text) {
-        num.add(text);
-        notifyDataSetChanged();
-
-    }
-
     public void delete(int pos) {
-        /*int position = items.indexOf(num);
-        if (position > 0)*/
         items.remove(pos);
         notifyItemRemoved(pos);
     }
@@ -46,23 +37,30 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextView;
         public TextView m2TextView;
+        //public TextView m3TextView;
         public Button button;
         private int pos;
+
 
         public ViewHolder (View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.tv_recycler_item);
             m2TextView = (TextView) v.findViewById(R.id.tv2_recycler_item);
+            //m3TextView = (TextView) v.findViewById(R.id.empty);
+            //m3TextView.setText("Empty");
             button = (Button) v.findViewById(R.id.button);
             if(button!=null) {
                 button.setOnClickListener(this);
             }
+
+
         }
 
         public void bindInfo(String str, int pos) {
             this.pos = pos;
             mTextView.setText(str);
             m2TextView.setText(String.valueOf(pos+1));
+            //m3TextView.setText(str);
         }
 
         @Override
@@ -88,14 +86,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position ) {
-           holder.bindInfo(num.get(position), position);
-           holder.bindInfo(items.get(position), position);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+            holder.bindInfo(items.get(position), position);
     }
-
     @Override
     public int getItemViewType(int position) {
-        return items.isEmpty() ? TYPE_ALL : TYPE_EMPTY;
+        return items.isEmpty() ? TYPE_EMPTY : TYPE_ALL;
     }
     @Override
     public int getItemCount() {

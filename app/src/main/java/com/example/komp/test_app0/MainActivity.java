@@ -31,21 +31,16 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        final EditText editTex = (EditText) findViewById(R.id.editText);
-        final EditText editTex2 = (EditText) findViewById(R.id.editText2);
+        final EditText editTex0 = (EditText) findViewById(R.id.editText);
+        final EditText editTex1 = (EditText) findViewById(R.id.editText2);
         final Button button1 = (Button) findViewById(R.id.okbutt1);
-
-        //final Button button2 = (Button) findViewById(R.id.button);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String input = editTex.getText().toString();
-                String nums = editTex2.getText().toString();
+                String input = editTex0.getText().toString();
                 if (null != input && input.length() > 0) {
                     mAdapter.addText(input);
-                    mAdapter.addText2(nums);
-                    editTex.setText("");
-                    editTex2.setText("");
-
+                    editTex0.setText("");
+                    editTex1.setText("");
                 }
                     else{
                     Toast toast = Toast.makeText(getApplicationContext(),
@@ -54,12 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-     /*  button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //mAdapter.delete(1);
-            }
-        });*/
     }
 
 }
