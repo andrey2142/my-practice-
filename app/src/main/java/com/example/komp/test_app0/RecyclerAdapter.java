@@ -17,8 +17,12 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
+    private static final int TYPE_EMPTY = 2;
+    private static final int TYPE_ALL = 1;
+
     List<String> items = new ArrayList<>();
     List<String> num = new ArrayList<>();
+    List<String> emp = new ArrayList<>();
 
 
     public void addText(String text) {
@@ -32,42 +36,69 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+    public void delete(int pos) {
+        /*int position = items.indexOf(num);
+        if (position > 0)*/
+        items.remove(pos);
+        notifyItemRemoved(pos);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView mTextView;
         public TextView m2TextView;
         public Button button;
+        private int pos;
 
-
-        public ViewHolder(View v) {
+        public ViewHolder (View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.tv_recycler_item);
             m2TextView = (TextView) v.findViewById(R.id.tv2_recycler_item);
             button = (Button) v.findViewById(R.id.button);
+            if(button!=null) {
+                button.setOnClickListener(this);
+            }
+        }
+
+        public void bindInfo(String str, int pos) {
+            this.pos = pos;
+            mTextView.setText(str);
+            m2TextView.setText(String.valueOf(pos+1));
+        }
+
+        @Override
+        public void onClick(View v) {
+            delete(pos);
         }
     }
 
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_item, parent, false);
+        int resLayout = 0;
+        switch (viewType) {
+            case TYPE_ALL:
+                resLayout = R.layout.recycler_item;
+                break;
+            case TYPE_EMPTY:
+                resLayout = R.layout.empty_item;
+                break;
+        }
+        View v = LayoutInflater.from(parent.getContext()).inflate(resLayout, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(items.get(position));
-        holder.m2TextView.setText(num.get(position));
+    public void onBindViewHolder(ViewHolder holder, int position ) {
+           holder.bindInfo(num.get(position), position);
+           holder.bindInfo(items.get(position), position);
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return items.isEmpty() ? TYPE_ALL : TYPE_EMPTY;
+    }
+    @Override
     public int getItemCount() {
-        if (items.size() == 0) {
-            empty.setVisibility(TextView.INVISIBLE);
-        } else {
-            empty.setVisibility(TextView.VISIBLE);
-        }
-        return items.size();
-
+        return items == null ? 0 : items.size();
     }
 }
