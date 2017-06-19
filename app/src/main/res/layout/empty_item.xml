@@ -7,7 +7,7 @@
     android:id="@+id/cv2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    card_view:cardBackgroundColor="@color/accent_material_dark"
+    card_view:cardBackgroundColor="@color/accent_material_light"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true">
