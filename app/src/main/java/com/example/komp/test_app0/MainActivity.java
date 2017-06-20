@@ -29,10 +29,9 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String input = editTex0.getText().toString();
-                String input2 = editTex1.getText().toString();
+                //String input2 = editTex1.getText().toString();
                 if (null != input && input.length() > 0) {
                     mAdapter.addText(input);
-                    mAdapter.addText2(input2);
                     editTex0.setText("");
                     editTex1.setText("");
                 }
