@@ -20,6 +20,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     List<String> num = new ArrayList<>();
     List<String> emp = new ArrayList<>();
 
+
     public void addText(String text) {
         items.add(text);
         notifyDataSetChanged();
@@ -45,7 +46,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 button.setOnClickListener(this);
             }
         }
-
         public void bindInfo(String str, int pos) {
             this.pos = pos;
             mTextView.setText(str);
@@ -59,12 +59,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public class EmptyViewHolder extends RecyclerView.ViewHolder {
         public TextView empty;
-
+        private int pos;
         public EmptyViewHolder(View a) {
             super(a);
             empty = (TextView) a.findViewById(R.id.empty);
+            emp.add("pih");
+            notifyDataSetChanged();
+            empty.setText((CharSequence) emp);
         }
-
+       /* public void bindInfo2(String str, int pos) {
+            this.pos = pos;
+            empty.setText(str);
+        }*/
     }
 
     @Override
@@ -86,10 +92,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case TYPE_ALL:
-                holder.bindInfo(items.get(position), position);
+
                 break;
             case TYPE_EMPTY:
-                holder.bindInfo(emp.get(position), position);
+
                 break;
         }
     }
