@@ -17,8 +17,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_EMPTY = 2;
     private static final int TYPE_ALL = 1;
     List<String> items = new ArrayList<>();
-    List<String> num = new ArrayList<>();
-    List<String> emp = new ArrayList<>();
 
 
     public void addText(String text) {
@@ -27,6 +25,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void delete(int pos) {
+        if (pos >= items.size()) {
+            pos = items.size() - 1;
+        }
         items.remove(pos);
         notifyItemRemoved(pos);
     }
@@ -42,15 +43,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mTextView = (TextView) v.findViewById(R.id.tv_recycler_item);
             m2TextView = (TextView) v.findViewById(R.id.tv2_recycler_item);
             button = (Button) v.findViewById(R.id.button);
-            if(button!=null) {
+            if (button != null) {
                 button.setOnClickListener(this);
             }
         }
+
         public void bindInfo(String str, int pos) {
             this.pos = pos;
             mTextView.setText(str);
             m2TextView.setText(String.valueOf(pos + 1));
         }
+
         @Override
         public void onClick(View v) {
             delete(pos);
@@ -58,19 +61,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class EmptyViewHolder extends RecyclerView.ViewHolder {
-        public TextView empty;
-        private int pos;
+
         public EmptyViewHolder(View a) {
             super(a);
-            empty = (TextView) a.findViewById(R.id.empty);
-            emp.add("pih");
-            notifyDataSetChanged();
-            empty.setText((CharSequence) emp);
         }
-       /* public void bindInfo2(String str, int pos) {
-            this.pos = pos;
-            empty.setText(str);
-        }*/
     }
 
     @Override
@@ -92,10 +86,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case TYPE_ALL:
-
+                AllViewHolder h = (AllViewHolder) holder;
+                h.bindInfo(items.get(position), position);
                 break;
             case TYPE_EMPTY:
-
                 break;
         }
     }
